@@ -18,17 +18,7 @@ resource "aws_instance" "ec2_instance" {
   tags = {
     Name = var.ec2_name
   }
-  user_data = <<-EOF
-    #! /bin/bash
-    sudo su
-    yum update -y
-    yum install httpd -y
-    service httpd start
-    chkconfig httpd on
-    cd /var/www/html
-    touch index.html
-    echo "<h1>Hello World</h1>" > index.html
-  EOF
+  user_data = file("user_data.sh") 
 }
 
 resource "aws_security_group" "ec2_sec_grp" {
