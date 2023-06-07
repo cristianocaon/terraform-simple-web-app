@@ -10,3 +10,4 @@ access_key = <your-access-key>
 secret_key = <your-secret-key>
 ```
 
+Create a public key at the root with the name `simple-web-app-terraform.pub`
