@@ -6,8 +6,8 @@ This repository includes the Terraform files used to provision the infrastructur
 
 Create a `terraform.tfvars` with the following variables:
 ```terraform
-access_key = <your-access-key>
-secret_key = <your-secret-key>
+access_key = <your-aws-iam-user-access-key>
+secret_key = <your-aws-iam-user-secret-key>
 ```
 
-Create a public key at the root with the name `simple-web-app-terraform.pub`
+Add a public key at the root with the name `simple-web-app-terraform.pub` from AWS EC2 key pair.
