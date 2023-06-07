@@ -26,7 +26,7 @@ variable "ec2_ami_id" {
   description = "The Amazon Linux AMI."
   default = "ami-0715c1897453cabd1"
 }
-variable "ec2_sec_grp" {
+variable "ec2_sec_grp_cloud" {
   description = "Name for security group of EC2 instance."
-  default = "ec2_sec_grp"
+  default = "ec2_sec_grp_cloud"
 }

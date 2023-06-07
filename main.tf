@@ -4,8 +4,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_key_pair" "ssh_key" {
-  key_name = "ssh_key"
+resource "aws_key_pair" "ssh_key_cloud" {
+  key_name = "ssh_key_cloud"
   public_key = var.public_key
 }
 
@@ -13,16 +13,16 @@ resource "aws_instance" "ec2_instance" {
   ami = var.ec2_ami_id
   count = var.ec2_count
   instance_type = var.ec2_type
-  key_name = aws_key_pair.ssh_key.key_name
-  security_groups = [var.ec2_sec_grp]
+  key_name = aws_key_pair.ssh_key_cloud.key_name
+  security_groups = [var.ec2_sec_grp_cloud]
   tags = {
     Name = var.ec2_name
   }
   user_data = file("user_data.sh") 
 }
 
-resource "aws_security_group" "ec2_sec_grp" {
-  name = var.ec2_sec_grp
+resource "aws_security_group" "ec2_sec_grp_cloud" {
+  name = var.ec2_sec_grp_cloud
   description = "Allow HTTP/HTTPS and SSH ingress only from my IP address."
 
   ingress {
