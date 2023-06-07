@@ -6,4 +6,4 @@ service httpd start
 chkconfig httpd on
 cd /var/www/html
 touch index.html
-echo "<h1>Hello World</h1>" > index.html
+echo "<h1>Hello World from Terraform Cloud</h1>" > index.html
