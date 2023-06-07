@@ -4,6 +4,9 @@ variable "access_key" {
 variable "secret_key" {
   description = "Secret key to AWS console."
 }
+variable "public_key" {
+  description = "Public key from AWS EC2 key pair."
+}
 variable "ec2_name" {
   description = "Name of the instance."
   default = "flask_ec2_terraform_test"

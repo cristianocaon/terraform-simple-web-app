@@ -6,7 +6,7 @@ provider "aws" {
 
 resource "aws_key_pair" "ssh_key" {
   key_name = "ssh_key"
-  public_key = file("simple-web-app-terraform.pub")
+  public_key = var.public_key
 }
 
 resource "aws_instance" "ec2_instance" {
