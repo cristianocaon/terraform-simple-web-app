@@ -1,11 +1,14 @@
 variable "access_key" {
   description = "Access key to AWS console."
+  sensitive = true
 }
 variable "secret_key" {
   description = "Secret key to AWS console."
+  sensitive = true
 }
 variable "public_key" {
   description = "Public key from AWS EC2 key pair."
+  sensitive = true
 }
 variable "ec2_name" {
   description = "Name of the instance."
