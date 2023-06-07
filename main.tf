@@ -4,16 +4,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_key_pair" "ssh_key_cloud" {
-  key_name = "ssh_key_cloud"
-  public_key = var.public_key
-}
-
 resource "aws_instance" "ec2_instance" {
   ami = var.ec2_ami_id
   count = var.ec2_count
   instance_type = var.ec2_type
-  key_name = aws_key_pair.ssh_key_cloud.key_name
   security_groups = [var.ec2_sec_grp_cloud]
   tags = {
     Name = var.ec2_name

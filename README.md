@@ -8,5 +8,4 @@ Create a `terraform.tfvars` with the following variables:
 ```terraform
 access_key = "<your-aws-iam-user-access-key>"
 secret_key = "<your-aws-iam-user-secret-key>"
-public_key = "<your-aws-ec2-public-key>"
 ```
