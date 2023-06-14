@@ -9,6 +9,7 @@ resource "aws_instance" "ec2_instance" {
   count           = var.ec2_count
   instance_type   = var.ec2_type
   security_groups = [aws_security_group.sec_grp.name]
+  key_name        = "private_key"
   tags = {
     Name = var.ec2_name
   }
