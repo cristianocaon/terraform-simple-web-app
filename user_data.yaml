@@ -4,7 +4,7 @@
 #  - chmod 400 ${ssh_private_key_file}
 #  - chown ${default_user}:${default_user} ${ssh_private_key_file}
 write_files:
-  - content: ${ssh_private_key_file}
+  - content: ${ssh_private_key}
     owner: ${default_user}:${default_user}
     path: ${ssh_private_key_file}
     permissions: '0400'

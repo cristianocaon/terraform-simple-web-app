@@ -8,12 +8,26 @@ locals {
   default_user = "ec2-user"
 }
 
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "this" {
+  key_name   = "private_key"
+  public_key = tls_private_key.rsa.public_key_openssh
+
+  provisioner "local-exec" { # Create "myKey.pem" to your computer!!
+    command = "echo '${tls_private_key.rsa.private_key_pem}' > ./private_key_2.pem"
+  }
+}
+
 resource "aws_instance" "ec2_instance" {
   ami             = var.ec2_ami_id
   count           = var.ec2_count
   instance_type   = var.ec2_type
   security_groups = [aws_security_group.sec_grp.name]
-  key_name        = "private_key"
+  key_name        = aws_key_pair.this.key_name
   tags = {
     Name = var.ec2_name
   }
