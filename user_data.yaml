@@ -1,5 +1,4 @@
 #cloud-config
 bootcmd:
-  - touch random.txt
-  - echo ${ssh_private_key} > ${ssh_private_key_file}
-  - chmod 400 ${ssh_private_key_file}
+  - echo ${ssh_private_key} > $HOME/${ssh_private_key_file}
+  - chmod 400 $HOME/${ssh_private_key_file}
