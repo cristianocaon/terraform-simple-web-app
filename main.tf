@@ -8,6 +8,12 @@ locals {
   default_user = "ec2-user"
 }
 
+resource "local_file" "deploy_ssh_key" {
+  filename = "/tmp/id_rsa"
+  content  = var.ssh_key
+  file_permission = 600
+}
+
 resource "aws_instance" "ec2_instance" {
   ami             = var.ec2_ami_id
   count           = var.ec2_count
@@ -17,12 +23,15 @@ resource "aws_instance" "ec2_instance" {
   tags = {
     Name = var.ec2_name
   }
-  user_data = templatefile("user_data.yaml", {
-    ssh_private_key      = var.ssh_key
-    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
-    default_user         = local.default_user
-  })
-  user_data_replace_on_change = true
+#  user_data = templatefile("user_data.yaml", {
+#    ssh_private_key      = var.ssh_key
+#    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
+#    default_user         = local.default_user
+#  })
+#  user_data_replace_on_change = true
+  provisioner "local-exec" {
+    command = "tr -d '\r' < /tmp/id_rsa > ~/id_rsa && chmod 0600 ~/id_rsa"
+  }
 }
 
 resource "aws_security_group" "sec_grp" {
