@@ -1,5 +1,5 @@
 #cloud-config
 runcmd: # Runs on first boot
-  - echo "${ssh_private_key}" >> ${ssh_private_key_file}
+  - printf ${ssh_private_key} >> ${ssh_private_key_file}
   - chmod 400 ${ssh_private_key_file}
   - chown ${default_user}:${default_user} ${ssh_private_key_file}
