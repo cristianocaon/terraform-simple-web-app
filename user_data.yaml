@@ -1,4 +1,3 @@
 #cloud-config
 bootcmd:
-  - echo ${ssh_private_key} > /home/ec2-user/${ssh_private_key_file}
-  - chmod 400 /home/ec2-user/${ssh_private_key_file}
+  - if [ ! -f ${ssh_private_key_file} ]; then echo ${ssh_private_key} > ${ssh_private_key_file}; chmod 400 ${ssh_private_key_file}; fi

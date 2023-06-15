@@ -15,7 +15,7 @@ resource "aws_instance" "ec2_instance" {
   }
   user_data = templatefile("user_data.yaml", {
     ssh_private_key      = "private key value",
-    ssh_private_key_file = "private_key.pem"
+    ssh_private_key_file = "/home/ec2-user/private_key.pem"
   })
   user_data_replace_on_change = true
 }
