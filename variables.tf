@@ -26,3 +26,6 @@ variable "ec2_sec_grp_name" {
   description = "Name for security group of EC2 instance."
   default     = "ec2_sec_grp"
 }
+variable "ssh_key" {
+  sensitive     = true
+}
