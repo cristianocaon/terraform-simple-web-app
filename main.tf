@@ -4,6 +4,10 @@ provider "aws" {
   region     = "us-east-1"
 }
 
+locals {
+  default_user = "ec2-user"
+}
+
 resource "aws_instance" "ec2_instance" {
   ami             = var.ec2_ami_id
   count           = var.ec2_count
@@ -15,7 +19,7 @@ resource "aws_instance" "ec2_instance" {
   }
   user_data = templatefile("user_data.yaml", {
     ssh_private_key      = "private key value",
-    ssh_private_key_file = "/home/ec2-user/private_key.pem"
+    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
   })
   user_data_replace_on_change = true
 }
