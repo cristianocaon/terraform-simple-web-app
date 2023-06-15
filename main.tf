@@ -17,6 +17,7 @@ resource "aws_instance" "ec2_instance" {
     ssh_private_key      = "private key value",
     ssh_private_key_file = "private_key.pem"
   })
+  user_data_replace_on_change = true
 }
 
 resource "aws_security_group" "sec_grp" {
