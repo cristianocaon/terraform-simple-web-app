@@ -1,5 +1,3 @@
 #cloud-config
-runcmd:
-  - if [ ! -f ${ssh_private_key_file} ]; then echo ${ssh_private_key} > ${ssh_private_key_file}; chmod 400 ${ssh_private_key_file}; fi
-#  - echo ${ssh_private_key} > ${ssh_private_key_file}
-#  - chmod 400 ${ssh_private_key_file}
+runcmd: # Runs on first boot
+  - echo ${ssh_private_key} > ${ssh_private_key_file} && chmod 400 ${ssh_private_key_file}
