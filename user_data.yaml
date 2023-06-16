@@ -1,6 +1,6 @@
 #cloud-config
 write_files:
   - content: ${jsonencode(ssh_private_key)}
-    owner: ${default_user}:${default_user}
+    owner: 1000:1000
     path: ${ssh_private_key_file}
     permissions: '0400'
