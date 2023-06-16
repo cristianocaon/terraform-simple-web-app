@@ -1,7 +1,4 @@
 #cloud-config
-users:
-  - name: ${default_user}
-    groups: ${default_user}
 write_files:
   - content: ${jsonencode(ssh_private_key)}
     owner: ${default_user}:${default_user}
