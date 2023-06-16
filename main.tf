@@ -20,7 +20,6 @@ resource "aws_instance" "ec2_instance" {
   user_data = base64encode(templatefile("user_data.yaml", {
     ssh_private_key      = var.ssh_key
     ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
-    default_user         = local.default_user
   }))
   user_data_replace_on_change = true
 }
