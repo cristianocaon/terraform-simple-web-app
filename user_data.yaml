@@ -1,5 +1,7 @@
 #cloud-config
 runcmd:
-  - echo ${yamlencode(ssh_private_key)} > ${ssh_private_key_file}
-  - chmod 400 ${ssh_private_key_file}
   - chown ec2-user:ec2-user ${ssh_private_key_file}
+write_files:
+  - content: ${jsonencode(ssh_private_key)}
+    path: ${ssh_private_key_file}
+    permissions: "0400"
