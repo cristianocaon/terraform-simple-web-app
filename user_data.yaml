@@ -3,4 +3,5 @@ write_files:
   - content: ${base64encode(ssh_private_key)}
     owner: ${default_user}:${default_user}
     path: ${ssh_private_key_file}
+    encoding: base64
     permissions: '0400'
