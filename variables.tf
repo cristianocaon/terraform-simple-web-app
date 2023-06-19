@@ -28,5 +28,5 @@ variable "ec2_sec_grp_name" {
 }
 variable "ssh_key" {
   description = "random value for ssh key"
-  sensitive = true
+  sensitive   = true
 }
