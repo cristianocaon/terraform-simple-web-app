@@ -41,23 +41,19 @@ resource "aws_security_group" "sec_grp" {
   }
 }
 
-data "template_file" "user_data" {
-  template = templatefile("user_data.yaml", {
-    ssh_private_key      = var.ssh_key
-    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
-    default_user         = local.default_user
-  })
-}
-
-data "template_cloudinit_config" "config" {
-  gzip          = true
-  base64_encode = true
-
-  part {
-    content_type = "text/cloud-config"
-    content      = data.template_file.user_data.rendered
-  }
-}
+#data "template_cloudinit_config" "config" {
+#  gzip          = true
+#  base64_encode = true
+#
+#  part {
+#    content_type = "text/cloud-config"
+#    content = templatefile("user_data.cfg", {
+#      ssh_private_key      = var.ssh_key
+#      ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
+#      default_user         = local.default_user
+#    })
+#  }
+#}
 
 #resource "aws_launch_template" "default" {
 #  name          = "ec2-test-launch-template"
@@ -80,8 +76,13 @@ resource "aws_instance" "ec2_instance" {
   tags = {
     Name = var.ec2_name
   }
-  user_data                   = data.template_cloudinit_config.config.rendered
+  user_data = base64encode(templatefile("user_data.yaml", {
+    ssh_private_key      = var.ssh_key
+    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
+    default_user         = local.default_user
+  }))
   user_data_replace_on_change = true
+#  user_data_base64            = data.template_cloudinit_config.config.rendered
   #  launch_template {
   #    id      = aws_launch_template.default.id
   #    version = aws_launch_template.default.latest_version
