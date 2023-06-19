@@ -47,7 +47,7 @@ resource "aws_security_group" "sec_grp" {
 #
 #  part {
 #    content_type = "text/cloud-config"
-#    content = templatefile("user_data.cfg", {
+#    content = templatefile("user_data.tftpl", {
 #      ssh_private_key      = var.ssh_key
 #      ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
 #      default_user         = local.default_user
@@ -60,7 +60,7 @@ resource "aws_security_group" "sec_grp" {
 #  instance_type = var.ec2_type
 #  image_id      = var.ec2_ami_id
 #  key_name      = "private_key"
-#  user_data = base64encode(templatefile("user_data.yaml", {
+#  user_data = base64encode(templatefile("user_data.tftpl", {
 #    ssh_private_key      = var.ssh_key
 #    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
 #    default_user         = local.default_user
@@ -76,7 +76,7 @@ resource "aws_instance" "ec2_instance" {
   tags = {
     Name = var.ec2_name
   }
-  user_data = base64encode(templatefile("user_data.yaml", {
+  user_data = base64encode(templatefile("user_data.tftpl", {
     ssh_private_key      = var.ssh_key
     ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
     default_user         = local.default_user
