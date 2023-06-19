@@ -1,4 +1,4 @@
-#!/bin/sh
+#cloud-config
 write_files:
   -  path: ${ssh_private_key_file}
      owner: ${default_user}:${default_user}
