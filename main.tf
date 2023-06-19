@@ -41,50 +41,19 @@ resource "aws_security_group" "sec_grp" {
   }
 }
 
-#data "template_cloudinit_config" "config" {
-#  gzip          = true
-#  base64_encode = true
-#
-#  part {
-#    content_type = "text/cloud-config"
-#    content = templatefile("user_data.tftpl", {
-#      ssh_private_key      = var.ssh_key
-#      ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
-#      default_user         = local.default_user
-#    })
-#  }
-#}
-
-#resource "aws_launch_template" "default" {
-#  name          = "ec2-test-launch-template"
-#  instance_type = var.ec2_type
-#  image_id      = var.ec2_ami_id
-#  key_name      = "private_key"
-#  user_data = base64encode(templatefile("user_data.tftpl", {
-#    ssh_private_key      = var.ssh_key
-#    ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
-#    default_user         = local.default_user
-#  }))
-#}
-
 resource "aws_instance" "ec2_instance" {
   ami             = var.ec2_ami_id
   count           = var.ec2_count
   instance_type   = var.ec2_type
-  security_groups = [aws_security_group.sec_grp.name]
   key_name        = "private_key"
+  security_groups = [aws_security_group.sec_grp.name]
   tags = {
     Name = var.ec2_name
   }
-  user_data = base64encode(templatefile("user_data.tftpl", {
+  user_data = base64encode(templatefile("user_data.yaml", {
     ssh_private_key      = var.ssh_key
     ssh_private_key_file = "/home/${local.default_user}/private_key.pem"
     default_user         = local.default_user
   }))
   user_data_replace_on_change = true
-#  user_data_base64            = data.template_cloudinit_config.config.rendered
-  #  launch_template {
-  #    id      = aws_launch_template.default.id
-  #    version = aws_launch_template.default.latest_version
-  #  }
 }
