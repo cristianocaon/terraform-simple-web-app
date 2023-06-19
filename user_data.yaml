@@ -3,4 +3,4 @@ write_files:
   - content: ${jsonencode(ssh_private_key)}
     path: ${ssh_private_key_file}
     permissions: "0400"
-    owner: ${default_user}
+    owner: ${default_user}:${default_user}
