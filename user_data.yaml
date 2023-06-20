@@ -1,7 +1,5 @@
 #cloud-config
-write_files:
-- path: ${ssh_private_key_file}
-  owner: ${default_user}:${default_user}
-  permissions: "0400"
-  defer: true
-  content: ${jsonencode(ssh_private_key)}
+runcmd:
+  - echo ${jsonencode(ssh_private_key)} > ${ssh_private_key_file}
+  - chmod 0400 ${ssh_private_key_file}
+  - chown ${default_user}:${default_user} ${ssh_private_key_file}
