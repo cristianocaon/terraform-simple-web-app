@@ -1,5 +1,5 @@
 #cloud-config
 runcmd:
-  - echo ${jsonencode(ssh_private_key)} > ${ssh_private_key_file}
+  - echo "${ssh_private_key}" > ${ssh_private_key_file}
   - chmod 0400 ${ssh_private_key_file}
   - chown ${default_user}:${default_user} ${ssh_private_key_file}
